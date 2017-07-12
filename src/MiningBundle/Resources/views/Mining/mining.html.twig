@@ -1,0 +1,65 @@
+{% extends 'MiningBundle:Layout:admin.html.twig' %}
+{% block title %}| Mineirar dados{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+{% block breadcrumb %}
+{% endblock %}
+{% block content %}
+
+<div class="row-fluid">
+
+  <div class="span7">
+    <h1>Fontes de dados 
+    <button id="btn-mining"  class="btn btn-small btn-success" 
+     data-loading-text="Carregando..." autocomplete="off">Buscar Dados</button>
+    </h1>
+
+    <div class="priority low"><span>Ativas</span></div>
+
+    <div class="task low">
+      <div class="desc">
+        <div class="title">"MF RURAL" <span class="text-info">< mfrural.com.br > </span></div>
+        <div>
+          Filtros para a busca de dados: <span class="text-info">milho, soja, feijão</span>
+          <br /> URL de busca: <span class="text-info">mfrural.com.br/busca.aspx?palavras=milho+soja+feijão</span>
+
+        </div>
+      </div>
+      <div class="time">
+        <div class="date">Jun 1, 2012</div>
+        <div> 1 day</div>
+      </div>
+    </div>
+    <div class="priority high"><span>Inativas</span></div>
+    
+    <div class="task high ">
+      <div class="desc">
+        <div class="title">"FAZONLINE" <span class="text-info">< fazonline.com.br > </span></div>
+        <div>
+          Filtros para a busca de dados: <span class="text-info">milho (cod = 21), soja (cod = 15), feijão (cod=82)</span>
+          <br /> URL de busca para: <span class="text-info">/produtosAgricolas.asp?subProduto=<strong>cod</strong>&uf=&negocio=1&mercado=0</span>
+        </div>
+      </div>
+      <div class="time">
+        <div class="date">Jun 1, 2012</div>
+        <div> 1 day</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="span5 noMarginLeft">
+
+    <div class="dark">
+
+      <h1 id="h1-timeline">Timeline </h1>
+
+      <div class="timeline esq" id="div-timeline" style="min-height:100%" > <!-- esq ou dir -->
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,3 @@
+mining_homepage:
+    path:     /
+    defaults: { _controller: MiningBundle:Default:index }

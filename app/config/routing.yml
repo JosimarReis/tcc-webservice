@@ -1,0 +1,7 @@
+mining:
+    resource: "@MiningBundle/Controller"
+    type:   annotation
+
+rest_server:
+    resource: "@RestServerBundle/Controller"
+    type:   rest
