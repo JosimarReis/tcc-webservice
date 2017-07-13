@@ -34,6 +34,9 @@ class MFRuralController extends Controller
     */
     public function getPaginasDetalhes(){
         $fs = new Filesystem();
+        /**
+         * busca o ultimo arquivo inserido para buscar os detalhes de cada anuncios
+        */
         try{
             $dir = 'json/importacoes/listaPaginas/';
 
@@ -41,19 +44,17 @@ class MFRuralController extends Controller
             $finder->files()->in($dir)->date('> now - 4 hours');
 
             foreach ($finder as $file) {
-                // Dump the absolute path
-                #var_dump($file->getRealPath());
-
-                
+               
                 // Dump the relative path to the file
                $arquivo = $file->getRelativePathname();
             }
-
+            list($arquivo_nome, $arquivo_ext) = explode('.',$arquivo);
+            
             $content = file_get_contents($dir.$arquivo);
             $listaLinksAnuncios = json_decode($content, false, 512, JSON_UNESCAPED_UNICODE);
-            echo ('<pre>');
-            var_dump($listaLinksAnuncios);
-            die;
+            //echo ('<pre>');
+            //print_r(urldecode($listaLinksAnuncios[0]->href));
+            //die;
             //inicia o cliente para conexao
         $client = new Client();
      
@@ -62,7 +63,7 @@ class MFRuralController extends Controller
             $requests = function ($lista) use ($client) {
                 foreach($lista as $item) {
 
-                   $uri = $item['href'];
+                   $uri = urldecode($item->href);
                    
                     yield function() use ($client,$uri) {
                         return $client->getAsync($uri);
@@ -76,8 +77,8 @@ class MFRuralController extends Controller
                 $crawler = new Crawler($response->getBody()->getContents());
                 
                     $filter = '//div[contains(@class, "detalhesBox")]';
-                    $temp['titulo'] = $link['title'];
-                    $temp['url'] = $link['href'];
+                    $temp['titulo'] = $link->title;
+                    $temp['url'] = $link->href;
                     $temp['detalhes'] = $crawler
                             ->filterXPath($filter)
                             ->each(function (Crawler $node) {
@@ -95,7 +96,7 @@ class MFRuralController extends Controller
 
          $fs = new Filesystem();
         try{
-            $fs->dumpFile('json/importacoes/anuncios/'.$this->data->format('Ymd_His').'.json',
+            $fs->dumpFile('json/importacoes/'.$arquivo_nome.'/'.$this->data->format('Ymd_His').'.json',
             json_encode($paginas, JSON_UNESCAPED_UNICODE));
             
         }catch(IOException $e){
@@ -224,7 +225,7 @@ class MFRuralController extends Controller
 
         $fs = new Filesystem();
         try{
-            $fs->dumpFile('json/importacoes/listaPaginas/'.$this->data->format('Y_m_d_His').'.json',
+            $fs->dumpFile('json/importacoes/listaPaginas/'.$this->data->format('Ymd_His').'.json',
             json_encode($this->anuncios, JSON_UNESCAPED_UNICODE));
             
         }catch(IOException $e){

@@ -1,6 +1,7 @@
 {% extends 'MiningBundle:Layout:admin.html.twig' %}
 {% block title %}| Mineirar dados{% endblock %}
 {% block javascripts %}
+	<link  href="{{ asset('bundles/miningBundle/assets') }}/css/mining.css" rel="stylesheet">
 
 {% endblock %}
 {% block breadcrumb %}
@@ -9,7 +10,7 @@
 
 <div class="row-fluid">
 
-  <div class="span7">
+  <div class="span6">
     <h1>Fontes de dados 
     <button id="btn-mining"  class="btn btn-small btn-success" 
      data-loading-text="Carregando..." autocomplete="off">Buscar Dados</button>
@@ -48,18 +49,22 @@
     </div>
   </div>
 
-  <div class="span5 noMarginLeft">
+  <div class="span6 noMarginLeft">
 
     <div class="dark">
 
       <h1 id="h1-timeline">Timeline </h1>
 
-      <div class="timeline esq" id="div-timeline" style="min-height:100%" > <!-- esq ou dir -->
-
+        <ul id="ul-timeline" class="timeline-both-side">
+              
+        </ul>
       </div>
     </div>
 
   </div>
 
 </div>
+
+
+
 {% endblock %}
